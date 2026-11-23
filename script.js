@@ -1,205 +1,187 @@
-```javascript
 /* =====================================
    BUBU BIRTHDAY WEBSITE
-   MAIN JAVASCRIPT
+   COMPLETE JAVASCRIPT
 ===================================== */
-
-const screens = [...document.querySelectorAll('.screen')];
-
-const music = document.getElementById('birthdayMusic');
-
-const musicToggle = document.getElementById('musicToggle');
-
-let currentReason = 0;
-
-let popped = 0;
-
-let candlesBlown = false;
 
 
 /* =====================================
-   1. SCREEN NAVIGATION
+   ELEMENTS
 ===================================== */
 
-function showScreen(id) {
+const screens = document.querySelectorAll(".screen");
 
-    const current = document.querySelector('.screen.active');
+const music = document.getElementById("birthdayMusic");
 
-    const next = document.getElementById(id);
+const openGift = document.getElementById("openGift");
 
-    if (!next || current === next) return;
-
-    current.classList.add('leaving');
-
-    window.setTimeout(() => {
-
-        current.classList.remove('active', 'leaving');
-
-        next.classList.add('active');
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-
-    }, 380);
-
-}
-
-
-/* NEXT BUTTONS */
-
-document.querySelectorAll('[data-next]').forEach(button => {
-
-    button.addEventListener('click', () => {
-
-        showScreen(button.dataset.next);
-
-    });
-
-});
+const backgroundHearts = document.getElementById("backgroundHearts");
 
 
 /* =====================================
-   2. BACKGROUND MUSIC
+   SCREEN NAVIGATION
 ===================================== */
 
-function startMusic() {
+function showScreen(screenId) {
 
-    music.volume = 0.55;
+    const currentScreen = document.querySelector(".screen.active");
+    const nextScreen = document.getElementById(screenId);
 
-    music.play().then(() => {
+    if (!nextScreen || currentScreen === nextScreen) return;
 
-        musicToggle.innerHTML = '♫ <span>Music on</span>';
+    if (currentScreen) {
 
-    }).catch(() => {
+        currentScreen.classList.add("leaving");
 
-        musicToggle.innerHTML = '♫ <span>Tap for music</span>';
+        setTimeout(() => {
 
-    });
+            currentScreen.classList.remove("active");
+            currentScreen.classList.remove("leaving");
 
-}
-
-
-/* MUSIC CONTROL */
-
-musicToggle.addEventListener('click', () => {
-
-    if (music.paused) {
-
-        startMusic();
-
-    } else {
-
-        music.pause();
-
-        musicToggle.innerHTML = '♫ <span>Music off</span>';
+        }, 650);
 
     }
 
+    setTimeout(() => {
+
+        nextScreen.classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }, currentScreen ? 300 : 0);
+
+}
+
+
+/* =====================================
+   BACKGROUND FLOATING HEARTS
+===================================== */
+
+function createFloatingHearts() {
+
+    if (!backgroundHearts) return;
+
+    for (let i = 0; i < 18; i++) {
+
+        const heart = document.createElement("span");
+
+        heart.className = "floating-heart";
+
+        heart.innerHTML = Math.random() > 0.5 ? "♡" : "♥";
+
+        heart.style.left = Math.random() * 100 + "%";
+
+        heart.style.fontSize = (14 + Math.random() * 20) + "px";
+
+        heart.style.animationDuration = (9 + Math.random() * 12) + "s";
+
+        heart.style.animationDelay = (Math.random() * 10) + "s";
+
+        backgroundHearts.appendChild(heart);
+
+    }
+
+}
+
+createFloatingHearts();
+
+
+/* =====================================
+   MUSIC + GIFT OPENING
+===================================== */
+
+let musicStarted = false;
+
+openGift.addEventListener("click", async function () {
+
+    if (openGift.classList.contains("opened")) return;
+
+    openGift.classList.add("opened");
+
+    // Music starts automatically on first gift click
+    if (!musicStarted) {
+
+        try {
+
+            await music.play();
+
+            musicStarted = true;
+
+        } catch (error) {
+
+            console.log("Music could not start:", error);
+
+        }
+
+    }
+
+    setTimeout(() => {
+
+        showScreen("birthdayScreen");
+
+        launchConfetti();
+
+    }, 1100);
+
 });
 
 
 /* =====================================
-   3. GIFT BOX OPENING
+   SCREEN 2 - CONTINUE
 ===================================== */
 
-document.getElementById('openGift').addEventListener('click', function() {
+document.getElementById("continueToBalloons")
+    .addEventListener("click", function () {
 
-    this.classList.add('opening');
+        showScreen("balloonScreen");
 
-    startMusic();
-
-    burstConfetti(65);
-
-    window.setTimeout(() => {
-
-        showScreen('birthday');
-
-    }, 850);
-
-});
+    });
 
 
 /* =====================================
-   4. FOUR BALLOON SURPRISE
+   SCREEN 3 - BALLOONS
 ===================================== */
+
+const balloons = document.querySelectorAll(".balloon");
 
 const balloonWords = [
-
-    'A LITTLE',
-
-    'SURPRISE',
-
-    'FOR',
-
-    'YOU'
-
+    "A LITTLE",
+    "SURPRISE",
+    "FOR",
+    "YOU"
 ];
 
+let poppedBalloons = 0;
 
-document.querySelectorAll('.balloon').forEach((balloon, index) => {
+balloons.forEach((balloon, index) => {
 
-    balloon.addEventListener('click', () => {
+    balloon.addEventListener("click", function () {
 
-        if (balloon.classList.contains('popped')) return;
+        if (balloon.classList.contains("popped")) return;
 
+        balloon.classList.add("popped");
 
-        /* POP ANIMATION */
+        poppedBalloons++;
 
-        balloon.classList.add('popped');
+        // Show word at the balloon's position
+        document.getElementById("word" + index).textContent =
+            balloonWords[index];
 
+        // Small confetti celebration
+        createMiniConfetti();
 
-        /* REVEAL WORD */
+        if (poppedBalloons === 4) {
 
-        const item = balloon.closest('.balloon-item');
+            setTimeout(() => {
 
-        const word = item.querySelector('.revealed-word');
+                document.getElementById("surpriseReveal")
+                    .classList.add("show");
 
-        word.textContent = balloonWords[index];
+                launchConfetti();
 
-
-        window.setTimeout(() => {
-
-            word.classList.add('show');
-
-        }, 170);
-
-
-        popped++;
-
-
-        /* CONFETTI */
-
-        burstConfetti(16);
-
-
-        /* UPDATE PROGRESS */
-
-        const remaining = 4 - popped;
-
-        document.getElementById('popProgress').textContent = remaining
-
-            ? `${remaining} more ${remaining === 1 ? 'surprise is' : 'surprises are'} waiting…`
-
-            : 'You found all four little surprises! ❤️';
-
-
-        /* ALL FOUR BALLOONS POPPED */
-
-        if (popped === 4) {
-
-            window.setTimeout(() => {
-
-                document.getElementById('balloonFinale')
-                    .classList.add('show');
-
-                document.getElementById('toMemories')
-                    .classList.remove('hidden');
-
-                burstConfetti(55);
-
-            }, 550);
+            }, 600);
 
         }
 
@@ -208,375 +190,286 @@ document.querySelectorAll('.balloon').forEach((balloon, index) => {
 });
 
 
-/* GO TO MEMORIES */
+/* =====================================
+   CONTINUE TO MEMORIES
+===================================== */
 
-document.getElementById('toMemories').addEventListener('click', () => {
+document.getElementById("continueToMemories")
+    .addEventListener("click", function () {
 
-    showScreen('memories');
+        showScreen("memoriesScreen");
 
-});
+        currentMemory = 0;
+
+        displayMemory();
+
+    });
 
 
 /* =====================================
-   5. TEN REASONS WHY I LOVE YOU
+   SCREEN 4 - MEMORY SLIDESHOW
 ===================================== */
 
+const memories = [
 
-/* ALL ORIGINAL MESSAGES */
+    {
+        image: "memory-1.jpg",
+        number: "MEMORY 01",
+        title: "First Meeting",
+        description: "The day our beautiful story began. ❤️"
+    },
 
-const reasons = [
+    {
+        image: "memory-2.jpg",
+        number: "MEMORY 02",
+        title: "Our Roka",
+        description: "The beginning of forever together. 💍"
+    },
 
-    'Tumhara mujhe “Mera Gulla, Chunnu, Goli, Ballu” bulana… pata nahi kyun, par tumhare muh se ye naam sunte hi saari tension aur worries gayab ho jaati hain. ❤️',
+    {
+        image: "memory-3.jpg",
+        number: "MEMORY 03",
+        title: "Engagement",
+        description: "One step closer to our forever. ❤️"
+    },
 
-    'Mere endless mood swings, overthinking aur bina baat ke gussa hone ko jis patience se handle karte ho, uske liye tumhe special award milna chahiye. 😂',
-
-    'Tumhara pehle mujhe gussa dilana aur phir khud hi manana… honestly, tumse bada troublemaker aur koi nahi! 😂❤️',
-
-    'Meri har silly baat sunna, mere tantrums jhelna aur phir bhi mujhe utne hi pyaar se treat karna.',
-
-    'Jab life mein sab kuch perfect nahi hota, tab bhi tumhara mere saath khade rehna. My highs, my lows, my good days and my worst days — you’ve been there.',
-
-    'Tumhara bina kahe samajh jaana ki mujhe kab pyaar chahiye, kab attention aur kab bas ek tight hug.',
-
-    'Thank you for believing in me, supporting me and reminding me that I’m never alone in anything.',
-
-    'Tum mere husband hi nahi, mere best friend, biggest supporter, safe place aur favourite headache bhi ho. ❤️',
-
-    'Kabhi kabhi sochti hoon ki kitni lucky hoon ki life mein tum mile. Aur phir tumhari harkatein dekh kar sochti hoon ki Bhagwan ne patience ka test bhi mere liye hi rakha hai! 😂',
-
-    `Aur sabse important… agar mujhe zindagi mein dobara choose karne ka chance mile, toh main har baar tumhe hi choose karungi.
-
-You are, and will always be, the BEST decision of my life. ❤️
-
-Happy Birthday, my love! Bas aise hi hamesha mere saath rehna, mujhe hasana, manana, satana aur pyaar karte rehna.
-
-Love you, Mera Gulla! ❤️🧿`
+    {
+        image: "memory-4.jpg",
+        number: "MEMORY 04",
+        title: "Our Wedding",
+        description: "The day two hearts became one. 🧿"
+    }
 
 ];
 
-
-/* DISPLAY CURRENT REASON */
-
-function renderReason() {
-
-    document.getElementById('reasonCount').textContent =
-
-        `${String(currentReason + 1).padStart(2, '0')} / 10`;
+let currentMemory = 0;
 
 
-    document.getElementById('reasonNumber').textContent =
+function displayMemory() {
 
-        String(currentReason + 1).padStart(2, '0');
+    const memory = memories[currentMemory];
 
+    const image = document.getElementById("memoryImage");
 
-    const text = document.getElementById('reasonText');
+    const card = document.getElementById("memoryCard");
 
+    image.src = memory.image;
 
-    text.style.opacity = 0;
+    image.alt = memory.title;
 
-    text.style.transform = 'translateY(8px)';
+    document.getElementById("memoryNumber").textContent =
+        memory.number;
 
+    document.getElementById("memoryTitle").textContent =
+        memory.title;
 
-    window.setTimeout(() => {
+    document.getElementById("memoryDescription").textContent =
+        memory.description;
 
-        text.textContent = reasons[currentReason];
+    card.style.animation = "none";
 
-        text.style.transition = 'opacity .35s ease, transform .35s ease';
+    void card.offsetWidth;
 
-        text.style.opacity = 1;
+    card.style.animation = "revealText 0.7s ease";
 
-        text.style.transform = 'translateY(0)';
+    const nextButton = document.getElementById("nextMemory");
 
-    }, 180);
+    if (currentMemory === memories.length - 1) {
 
+        nextButton.textContent = "Read My Heart ♡";
 
-    document.getElementById('prevReason').disabled =
+    } else {
 
-        currentReason === 0;
+        nextButton.textContent = "Next Memory ♡";
 
-
-    const next = document.getElementById('nextReason');
-
-
-    next.innerHTML = currentReason === 9
-
-        ? 'Make a wish <span>→</span>'
-
-        : 'Next <span>→</span>';
+    }
 
 }
 
 
-/* BACK BUTTON */
+document.getElementById("nextMemory")
+    .addEventListener("click", function () {
 
-document.getElementById('prevReason').addEventListener('click', () => {
+        if (currentMemory < memories.length - 1) {
 
-    if (currentReason > 0) {
+            currentMemory++;
 
-        currentReason--;
+            displayMemory();
 
-        renderReason();
+        } else {
 
-    }
+            showScreen("reasonsScreen");
 
-});
+            currentReason = 0;
 
+            displayReason();
 
-/* NEXT BUTTON */
+        }
 
-document.getElementById('nextReason').addEventListener('click', () => {
-
-    if (currentReason < 9) {
-
-        currentReason++;
-
-        renderReason();
-
-    } else {
-
-        showScreen('cake');
-
-    }
-
-});
-
-
-/* INITIAL MESSAGE */
-
-renderReason();
+    });
 
 
 /* =====================================
-   6. BIRTHDAY CAKE AND CANDLES
+   SCREEN 5 - TEN REASONS
 ===================================== */
 
-document.getElementById('blowCandles').addEventListener('click', () => {
+const reasons = [
+
+    "Tumhara mujhe ‘Mera Gulla, Chunnu, Goli, Ballu’ bulana… pata nahi kyun, par tumhare muh se ye naam sunte hi saari tension aur worries gayab ho jaati hain. ❤️",
+
+    "Mere endless mood swings, overthinking aur bina baat ke gussa hone ko jis patience se handle karte ho, uske liye tumhe special award milna chahiye. 😂",
+
+    "Tumhara pehle mujhe gussa dilana aur phir khud hi manana… honestly, tumse bada troublemaker aur koi nahi! 😂❤️",
+
+    "Meri har silly baat sunna, mere tantrums jhelna aur phir bhi mujhe utne hi pyaar se treat karna.",
+
+    "Jab life mein sab kuch perfect nahi hota, tab bhi tumhara mere saath khade rehna. My highs, my lows, my good days and my worst days — you've been there.",
+
+    "Tumhara bina kahe samajh jaana ki mujhe kab pyaar chahiye, kab attention aur kab bas ek tight hug.",
+
+    "Thank you for believing in me, supporting me and reminding me that I'm never alone in anything.",
+
+    "Tum mere husband hi nahi, mere best friend, biggest supporter, safe place aur favourite headache bhi ho. ❤️",
+
+    "Kabhi kabhi sochti hoon ki kitni lucky hoon ki life mein tum mile. Aur phir tumhari harkatein dekh kar sochti hoon ki Bhagwan ne patience ka test bhi mere liye hi rakha hai! 😂",
+
+    "Aur sabse important… agar mujhe zindagi mein dobara choose karne ka chance mile, toh main har baar tumhe hi choose karungi.\n\nYou are, and will always be, the BEST decision of my life. ❤️\n\nHappy Birthday, my love! Bas aise hi hamesha mere saath rehna, mujhe hasana, manana, satana aur pyaar karte rehna.\n\nLove you, Mera Gulla! ❤️🧿"
+
+];
+
+let currentReason = 0;
+
+
+function displayReason() {
+
+    document.getElementById("reasonCounter").textContent =
+        String(currentReason + 1).padStart(2, "0") + " / 10";
+
+    document.getElementById("reasonText").textContent =
+        reasons[currentReason];
+
+    const nextButton = document.getElementById("nextReason");
+
+    if (currentReason === reasons.length - 1) {
+
+        nextButton.textContent = "One Last Surprise ♡";
+
+    } else {
+
+        nextButton.textContent = "Next Reason ♡";
+
+    }
+
+    const card = document.querySelector(".reason-card");
+
+    card.style.animation = "none";
+
+    void card.offsetWidth;
+
+    card.style.animation = "revealText 0.7s ease";
+
+}
+
+
+document.getElementById("nextReason")
+    .addEventListener("click", function () {
+
+        if (currentReason < reasons.length - 1) {
+
+            currentReason++;
+
+            displayReason();
+
+        } else {
+
+            showScreen("cakeScreen");
+
+        }
+
+    });
+
+
+/* =====================================
+   SCREEN 6 - BIRTHDAY CAKE
+===================================== */
+
+let candlesBlown = false;
+
+const blowButton = document.getElementById("blowCandles");
+
+const candles = document.querySelectorAll(".candle");
+
+blowButton.addEventListener("click", function () {
 
     if (candlesBlown) return;
 
     candlesBlown = true;
 
+    candles.forEach((candle, index) => {
 
-    /* EXTINGUISH ALL CANDLES */
+        setTimeout(() => {
 
-    document.querySelectorAll('.candle').forEach((candle, index) => {
+            candle.classList.add("out");
 
-        window.setTimeout(() => {
-
-            candle.classList.add('out');
-
-        }, index * 180);
+        }, index * 300);
 
     });
 
+    blowButton.style.display = "none";
 
-    /* WISH MESSAGE */
+    document.getElementById("cakeMessage").textContent =
+        "May all your wishes come true, my love! ❤️";
 
-    document.getElementById('wishMessage').textContent =
+    launchConfetti();
 
-        'Wish made! May all your dreams come true, my Bubu. ❤️';
+    setTimeout(() => {
 
+        showScreen("finalScreen");
 
-    document.getElementById('blowCandles').classList.add('hidden');
+        launchConfetti();
 
-
-    /* FINAL BUTTON */
-
-    window.setTimeout(() => {
-
-        burstConfetti(85);
-
-        document.getElementById('toFinal')
-            .classList.remove('hidden');
-
-    }, 650);
-
-});
-
-
-/* INDIVIDUAL CANDLE CLICK */
-
-document.querySelectorAll('.candle').forEach(candle => {
-
-    candle.addEventListener('click', () => {
-
-        if (candlesBlown) return;
-
-        candle.classList.add('out');
-
-
-        const allCandles = [...document.querySelectorAll('.candle')];
-
-
-        if (allCandles.every(c => c.classList.contains('out'))) {
-
-            document.getElementById('blowCandles').click();
-
-        }
-
-    });
+    }, 3500);
 
 });
 
 
 /* =====================================
-   7. FINAL BIRTHDAY SURPRISE
+   CONFETTI CELEBRATION
 ===================================== */
 
-document.getElementById('toFinal').addEventListener('click', () => {
+function launchConfetti() {
 
-    showScreen('final');
+    const confettiSymbols = ["♡", "♥", "✦", "✧", "✨"];
 
-    burstConfetti(100);
+    for (let i = 0; i < 65; i++) {
 
-});
+        const confetti = document.createElement("div");
 
+        confetti.className = "confetti";
 
-/* =====================================
-   8. REPLAY COMPLETE WEBSITE
-===================================== */
+        confetti.textContent =
+            confettiSymbols[
+                Math.floor(Math.random() * confettiSymbols.length)
+            ];
 
-document.getElementById('replay').addEventListener('click', () => {
+        confetti.style.left = Math.random() * 100 + "vw";
 
+        confetti.style.fontSize =
+            (12 + Math.random() * 18) + "px";
 
-    /* RESET VARIABLES */
+        confetti.style.animationDuration =
+            (2 + Math.random() * 3) + "s";
 
-    popped = 0;
+        confetti.style.animationDelay =
+            Math.random() * 1.5 + "s";
 
-    currentReason = 0;
+        document.body.appendChild(confetti);
 
-    candlesBlown = false;
+        setTimeout(() => {
 
+            confetti.remove();
 
-    /* RESET BALLOONS */
-
-    document.querySelectorAll('.balloon').forEach(balloon => {
-
-        balloon.classList.remove('popped');
-
-    });
-
-
-    document.querySelectorAll('.revealed-word').forEach(word => {
-
-        word.classList.remove('show');
-
-        word.textContent = '';
-
-    });
-
-
-    document.getElementById('balloonFinale')
-        .classList.remove('show');
-
-
-    document.getElementById('toMemories')
-        .classList.add('hidden');
-
-
-    document.getElementById('popProgress').textContent =
-
-        '4 surprises are waiting to be revealed';
-
-
-    /* RESET CANDLES */
-
-    document.querySelectorAll('.candle').forEach(candle => {
-
-        candle.classList.remove('out');
-
-    });
-
-
-    document.getElementById('wishMessage').textContent =
-
-        'Make your wish… I hope all your dreams come true. ❤️';
-
-
-    document.getElementById('blowCandles')
-        .classList.remove('hidden');
-
-
-    document.getElementById('toFinal')
-        .classList.add('hidden');
-
-
-    /* RESET REASONS */
-
-    renderReason();
-
-
-    /* BACK TO START */
-
-    showScreen('welcome');
-
-});
-
-
-/* =====================================
-   9. CONFETTI ANIMATION
-===================================== */
-
-function burstConfetti(count) {
-
-    const colors = [
-
-        '#d86f91',
-
-        '#f5b7c8',
-
-        '#fff1e9',
-
-        '#bd82bb',
-
-        '#e8a75e'
-
-    ];
-
-
-    for (let i = 0; i < count; i++) {
-
-        const piece = document.createElement('i');
-
-        piece.className = 'confetti';
-
-
-        piece.style.background =
-
-            colors[Math.floor(Math.random() * colors.length)];
-
-
-        piece.style.setProperty(
-
-            '--x',
-
-            `${(Math.random() - .5) * window.innerWidth * 1.1}px`
-
-        );
-
-
-        piece.style.setProperty(
-
-            '--y',
-
-            `${window.innerHeight * (.45 + Math.random() * .7)}px`
-
-        );
-
-
-        piece.style.left = `${40 + Math.random() * 20}%`;
-
-        piece.style.top = `${20 + Math.random() * 35}%`;
-
-
-        document.body.appendChild(piece);
-
-
-        window.setTimeout(() => {
-
-            piece.remove();
-
-        }, 1700);
+        }, 6000);
 
     }
 
@@ -584,61 +477,94 @@ function burstConfetti(count) {
 
 
 /* =====================================
-   10. FLOATING HEARTS
+   MINI CONFETTI
 ===================================== */
 
-const heartContainer = document.getElementById('floatingHearts');
+function createMiniConfetti() {
 
+    for (let i = 0; i < 12; i++) {
 
-function createHeart() {
+        const piece = document.createElement("div");
 
-    const heart = document.createElement('span');
+        piece.className = "confetti";
 
-    heart.className = 'heart-particle';
+        piece.textContent = "♡";
 
+        piece.style.left = Math.random() * 100 + "vw";
 
-    heart.textContent = Math.random() > .5 ? '♡' : '♥';
+        piece.style.fontSize = "17px";
 
+        piece.style.animationDuration = "2s";
 
-    heart.style.left = `${Math.random() * 100}%`;
+        document.body.appendChild(piece);
 
+        setTimeout(() => {
 
-    heart.style.fontSize = `${12 + Math.random() * 19}px`;
+            piece.remove();
 
+        }, 2500);
 
-    heart.style.animationDuration = `${9 + Math.random() * 9}s`;
-
-
-    heart.style.opacity = `${.25 + Math.random() * .35}`;
-
-
-    heartContainer.appendChild(heart);
-
-
-    window.setTimeout(() => {
-
-        heart.remove();
-
-    }, 19000);
+    }
 
 }
-
-
-/* INITIAL HEARTS */
-
-for (let i = 0; i < 12; i++) {
-
-    window.setTimeout(createHeart, i * 500);
-
-}
-
-
-/* CONTINUOUS FLOATING HEARTS */
-
-window.setInterval(createHeart, 1500);
 
 
 /* =====================================
-   WEBSITE COMPLETE ❤️
+   REPLAY WEBSITE
 ===================================== */
-```
+
+document.getElementById("replayButton")
+    .addEventListener("click", function () {
+
+        // Reset gift
+        openGift.classList.remove("opened");
+
+        // Reset balloons
+        balloons.forEach((balloon) => {
+
+            balloon.classList.remove("popped");
+
+        });
+
+        poppedBalloons = 0;
+
+        // Reset balloon words
+        for (let i = 0; i < 4; i++) {
+
+            document.getElementById("word" + i).textContent = "";
+
+        }
+
+        document.getElementById("surpriseReveal")
+            .classList.remove("show");
+
+        // Reset memories
+        currentMemory = 0;
+
+        // Reset reasons
+        currentReason = 0;
+
+        // Reset cake
+        candlesBlown = false;
+
+        candles.forEach((candle) => {
+
+            candle.classList.remove("out");
+
+        });
+
+        blowButton.style.display = "inline-flex";
+
+        document.getElementById("cakeMessage").textContent = "";
+
+        // Return to welcome screen
+        showScreen("welcomeScreen");
+
+    });
+
+
+/* =====================================
+   END
+===================================== */
+
+console.log("Happy Birthday, Bubu! ❤️");
