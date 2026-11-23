@@ -1,7 +1,8 @@
-/* =====================================
+```css
+/* =========================================
    BUBU BIRTHDAY WEBSITE
    PREMIUM ROMANTIC DESIGN
-===================================== */
+========================================= */
 
 :root {
     --pink: #e88ba9;
@@ -11,17 +12,11 @@
     --wine: #763b52;
     --text: #654452;
     --gold: #d8ae75;
-    --white: #ffffff;
 
     --heading-font: 'Cormorant Garamond', serif;
     --romantic-font: 'Dancing Script', cursive;
     --body-font: 'Poppins', sans-serif;
 }
-
-
-/* =====================================
-   GLOBAL RESET
-===================================== */
 
 * {
     margin: 0;
@@ -52,32 +47,25 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-
-/* =====================================
+/* =========================================
    BACKGROUND HEARTS
-===================================== */
+========================================= */
 
 .background-hearts {
     position: fixed;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
     pointer-events: none;
-
     z-index: 0;
 }
 
 .floating-heart {
     position: absolute;
     bottom: -50px;
-
-    color: rgba(215, 111, 150, 0.24);
-
+    color: rgba(215, 111, 150, 0.23);
     font-size: 22px;
-
     animation: floatHeart linear infinite;
 }
 
@@ -101,19 +89,17 @@ body {
     }
 }
 
-
-/* =====================================
+/* =========================================
    SCREEN SYSTEM
-===================================== */
+========================================= */
 
 .screen {
     position: relative;
-
     width: 100%;
     min-height: 100vh;
     min-height: 100dvh;
 
-    padding: 60px 22px;
+    padding: 55px 22px;
 
     display: none;
     flex-direction: column;
@@ -121,21 +107,14 @@ body {
     justify-content: center;
 
     text-align: center;
-
     opacity: 0;
 
     z-index: 1;
-
-    transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
 }
 
 .screen.active {
     display: flex;
-    opacity: 1;
-
-    animation: screenEnter 0.8s ease both;
+    animation: screenEnter 0.85s cubic-bezier(.22,.61,.36,1) both;
 }
 
 .screen.leaving {
@@ -146,111 +125,92 @@ body {
 @keyframes screenEnter {
     from {
         opacity: 0;
-        transform: translateY(18px);
+        transform: translateY(22px) scale(0.985);
+        filter: blur(3px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
-
-/* =====================================
+/* =========================================
    COMMON TEXT
-===================================== */
+========================================= */
 
 .small-heading {
     font-family: var(--body-font);
-
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
-
-    letter-spacing: 4px;
+    letter-spacing: 3.5px;
     text-transform: uppercase;
-
     color: var(--dark-pink);
-
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .section-title {
     font-family: var(--heading-font);
-
-    font-size: clamp(38px, 6vw, 65px);
+    font-size: clamp(42px, 6vw, 68px);
     font-weight: 600;
-
-    line-height: 1.05;
-
+    line-height: 1.08;
     color: var(--wine);
-
     margin-bottom: 14px;
 }
 
 .section-description {
-    max-width: 500px;
-
+    max-width: 520px;
     margin: 0 auto 35px;
-
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.9;
-
     color: #98717f;
 }
 
 .section-content {
     width: 100%;
     max-width: 850px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-
-/* =====================================
+/* =========================================
    BUTTONS
-===================================== */
+========================================= */
 
 .primary-button {
-    position: relative;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 
-    min-width: 185px;
-
-    padding: 15px 30px;
+    min-width: 190px;
+    padding: 16px 30px;
 
     border: 1px solid transparent;
     border-radius: 50px;
 
-    background: linear-gradient(
-        135deg,
-        #d76f96,
-        #b94e77
-    );
-
+    background: linear-gradient(135deg, #d76f96, #b94e77);
     color: white;
 
     font-family: var(--body-font);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
-
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
 
     cursor: pointer;
 
     box-shadow: 0 10px 25px rgba(190, 83, 124, 0.2);
 
-    transition: all 0.3s ease;
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        background 0.35s ease;
 }
 
 .primary-button:hover {
     transform: translateY(-4px);
-
     box-shadow: 0 15px 30px rgba(190, 83, 124, 0.3);
 }
 
@@ -258,10 +218,9 @@ body {
     transform: scale(0.96);
 }
 
-
-/* =====================================
+/* =========================================
    SCREEN 1 - WELCOME
-===================================== */
+========================================= */
 
 .welcome-content {
     width: 100%;
@@ -274,11 +233,8 @@ body {
 
 .welcome-heart {
     color: var(--pink);
-
-    font-size: 42px;
-
+    font-size: 48px;
     margin-bottom: 5px;
-
     animation: heartbeat 1.8s infinite;
 }
 
@@ -302,22 +258,16 @@ body {
 
 .welcome-content h1 {
     font-family: var(--romantic-font);
-
-    font-size: clamp(65px, 10vw, 100px);
+    font-size: clamp(70px, 10vw, 105px);
     font-weight: 600;
-
     color: var(--wine);
-
     line-height: 1.1;
 }
 
 .welcome-message {
     margin-top: 15px;
     margin-bottom: 25px;
-
-    font-size: 13px;
-    letter-spacing: 0.4px;
-
+    font-size: 15px;
     color: #98717f;
 }
 
@@ -328,107 +278,71 @@ body {
 .gift-button {
     border: none;
     background: transparent;
-
     cursor: pointer;
-
     padding: 30px;
-
     transition: transform 0.4s ease;
 }
 
 .gift-button:hover {
-    transform: translateY(-10px) rotate(-3deg);
+    transform: translateY(-9px) rotate(-3deg);
 }
 
 .gift-box {
     position: relative;
-
     width: 125px;
     height: 115px;
-
     margin: auto;
-
     filter: drop-shadow(0 15px 15px rgba(154, 73, 105, 0.2));
 }
 
 .gift-body {
     position: absolute;
-
     bottom: 0;
     left: 0;
-
     width: 125px;
     height: 82px;
-
-    background: linear-gradient(
-        135deg,
-        #ed94b0,
-        #c95882
-    );
-
+    background: linear-gradient(135deg, #ed94b0, #c95882);
     border-radius: 5px 5px 10px 10px;
 }
 
 .gift-lid {
     position: absolute;
-
     top: 19px;
     left: -7px;
-
     width: 139px;
     height: 24px;
-
-    background: linear-gradient(
-        135deg,
-        #f6b4c8,
-        #d66e96
-    );
-
+    background: linear-gradient(135deg, #f6b4c8, #d66e96);
     border-radius: 5px;
-
     z-index: 3;
-
-    transition: transform 0.8s ease;
+    transition: transform 0.8s cubic-bezier(.2,.8,.2,1);
 }
 
 .gift-ribbon {
     position: absolute;
-
     top: 33px;
     left: 51px;
-
     width: 23px;
     height: 82px;
-
     background: #ffe4a9;
-
     z-index: 2;
 }
 
 .gift-bow {
     position: absolute;
-
     top: 0;
     left: 43px;
-
     width: 40px;
     height: 25px;
-
     border: 8px solid #ffe4a9;
     border-radius: 50% 50% 0 50%;
-
     transform: rotate(-30deg);
-
     z-index: 4;
 }
 
 .gift-instruction {
     font-family: var(--romantic-font);
-
-    font-size: 25px;
-
+    font-size: 28px;
     color: var(--dark-pink);
-
     animation: softPulse 2s infinite;
 }
 
@@ -442,10 +356,9 @@ body {
     transform: translate(15px, -55px) rotate(20deg);
 }
 
-
-/* =====================================
+/* =========================================
    SCREEN 2 - BIRTHDAY
-===================================== */
+========================================= */
 
 .birthday-content {
     width: 100%;
@@ -454,71 +367,67 @@ body {
 
 .birthday-title {
     font-family: var(--heading-font);
-
-    font-size: clamp(55px, 10vw, 100px);
+    font-size: clamp(58px, 10vw, 105px);
     font-weight: 600;
-
-    line-height: 0.95;
-
+    line-height: 0.98;
     color: var(--wine);
 }
 
 .birthday-title span {
     display: block;
-
     font-family: var(--romantic-font);
-
-    font-size: clamp(85px, 15vw, 145px);
+    font-size: clamp(90px, 15vw, 150px);
     font-weight: 700;
-
     color: var(--dark-pink);
-
     margin-top: 10px;
 }
 
 .birthday-subtitle {
     margin-top: 25px;
-
-    font-size: 13px;
-
+    font-size: 15px;
+    line-height: 1.8;
     color: #98717f;
 }
 
 .birthday-decoration {
     margin: 30px 0;
-
     color: var(--gold);
-
-    font-size: 27px;
-
+    font-size: 30px;
     letter-spacing: 12px;
 }
 
-
-/* =====================================
+/* =========================================
    SCREEN 3 - BALLOONS
-===================================== */
+========================================= */
+
+.balloon-content {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 .balloon-container {
     width: 100%;
+    min-height: 210px;
 
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
 
-    gap: clamp(12px, 5vw, 45px);
-
-    margin: 30px 0;
+    gap: clamp(15px, 5vw, 45px);
+    margin: 20px 0 35px;
 }
 
 .balloon {
     position: relative;
 
-    width: clamp(58px, 10vw, 95px);
-    height: clamp(78px, 13vw, 125px);
+    width: clamp(62px, 10vw, 100px);
+    height: clamp(85px, 13vw, 130px);
 
     border: none;
-
     border-radius: 50% 50% 45% 45%;
 
     cursor: pointer;
@@ -528,9 +437,9 @@ body {
         inset 10px 10px 20px rgba(255, 255, 255, 0.35),
         0 12px 20px rgba(160, 75, 110, 0.12);
 
-    animation: balloonFloat 2.5s ease-in-out infinite alternate;
+    animation: balloonFloat 2.8s ease-in-out infinite alternate;
 
-    transition: transform 0.3s ease;
+    transition: transform 0.35s ease;
 }
 
 .balloon:nth-child(1) {
@@ -539,138 +448,163 @@ body {
 
 .balloon:nth-child(2) {
     background: #e9b0bc;
-
     animation-delay: 0.4s;
 }
 
 .balloon:nth-child(3) {
     background: #d9a1bd;
-
     animation-delay: 0.8s;
 }
 
 .balloon:nth-child(4) {
     background: #c98ba8;
-
     animation-delay: 1.2s;
 }
 
 .balloon:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .balloon-string {
     position: absolute;
-
     top: 100%;
     left: 50%;
-
     width: 1px;
-    height: 55px;
-
+    height: 65px;
     background: rgba(130, 83, 102, 0.5);
 }
 
 @keyframes balloonFloat {
     from {
-        transform: translateY(0);
+        transform: translateY(0) rotate(-2deg);
     }
 
     to {
-        transform: translateY(-15px);
+        transform: translateY(-18px) rotate(2deg);
     }
 }
 
 .balloon.popped {
-    animation: balloonPop 0.35s ease forwards;
+    animation: balloonPop 0.4s ease forwards;
     pointer-events: none;
 }
 
 @keyframes balloonPop {
-    to {
-        transform: scale(1.7);
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    55% {
+        transform: scale(1.35);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(0);
         opacity: 0;
     }
 }
 
+/* Balloon words */
+
 .balloon-words {
+    width: 100%;
+    min-height: 85px;
+
     display: flex;
     justify-content: center;
-
-    gap: 18px;
-
+    align-items: center;
     flex-wrap: wrap;
 
-    min-height: 45px;
-
-    margin-bottom: 25px;
+    gap: 12px;
 }
 
 .balloon-word {
-    font-family: var(--romantic-font);
+    display: inline-block;
 
-    font-size: 30px;
+    font-family: var(--romantic-font);
+    font-size: clamp(30px, 6vw, 45px);
     font-weight: 700;
 
     color: var(--dark-pink);
+
+    animation: wordReveal 0.75s cubic-bezier(.16,1,.3,1) both;
 }
 
-.surprise-reveal {
-    display: none;
-
-    animation: revealText 1s ease both;
-}
-
-.surprise-reveal.show {
-    display: block;
-}
-
-.surprise-reveal h2 {
-    font-family: var(--romantic-font);
-
-    font-size: clamp(40px, 7vw, 65px);
-
-    color: var(--dark-pink);
-
-    margin-bottom: 10px;
-}
-
-.surprise-reveal p {
-    margin-bottom: 25px;
-
-    font-size: 13px;
-}
-
-@keyframes revealText {
+@keyframes wordReveal {
     from {
         opacity: 0;
-        transform: translateY(20px) scale(0.9);
+        transform: translateY(25px) scale(0.7);
+        filter: blur(5px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
+/* Final surprise */
 
-/* =====================================
+.surprise-reveal {
+    display: none;
+    margin-top: 15px;
+    animation: revealText 1s ease both;
+}
+
+.surprise-reveal.show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.surprise-reveal h2 {
+    font-family: var(--romantic-font);
+    font-size: clamp(35px, 7vw, 60px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--dark-pink);
+    margin-bottom: 12px;
+}
+
+.surprise-reveal p {
+    font-family: var(--romantic-font);
+    font-size: 29px;
+    color: var(--wine);
+    margin-bottom: 25px;
+}
+
+@keyframes revealText {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.94);
+        filter: blur(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* =========================================
    SCREEN 4 - MEMORIES
-===================================== */
+========================================= */
 
 .memory-card {
     width: 100%;
-    max-width: 410px;
+    max-width: 420px;
 
     padding: 15px;
-
     margin: 5px auto 25px;
 
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.85);
 
     border: 1px solid rgba(221, 160, 180, 0.3);
-
-    border-radius: 14px;
+    border-radius: 16px;
 
     box-shadow: 0 15px 50px rgba(132, 70, 95, 0.12);
 
@@ -679,28 +613,26 @@ body {
 
 .memory-photo-frame {
     width: 100%;
-    height: clamp(220px, 42vw, 350px);
+    height: clamp(240px, 42vw, 360px);
 
     overflow: hidden;
-
-    border-radius: 8px;
+    border-radius: 10px;
 
     background: #f5dce5;
 }
 
 .memory-photo-frame img {
+    display: block;
     width: 100%;
     height: 100%;
-
-    display: block;
-
     object-fit: cover;
 
-    transition: transform 0.8s ease;
+    opacity: 1;
+    transition: opacity 0.35s ease, transform 0.8s ease;
 }
 
 .memory-card:hover img {
-    transform: scale(1.04);
+    transform: scale(1.035);
 }
 
 .memory-caption {
@@ -708,44 +640,37 @@ body {
 }
 
 .memory-number {
-    font-size: 9px;
-
+    font-size: 11px;
     letter-spacing: 3px;
-
     color: var(--dark-pink);
-
     margin-bottom: 8px;
 }
 
 .memory-caption h3 {
     font-family: var(--romantic-font);
-
-    font-size: 37px;
-
+    font-size: 43px;
     color: var(--wine);
-
-    margin-bottom: 6px;
+    margin-bottom: 7px;
 }
 
 .memory-caption p:last-child {
-    font-size: 11px;
-
+    font-size: 14px;
     color: #98717f;
+    line-height: 1.7;
 }
 
-
-/* =====================================
+/* =========================================
    SCREEN 5 - REASONS
-===================================== */
+========================================= */
 
 .reason-card {
+    position: relative;
+
     width: 100%;
-    max-width: 620px;
+    max-width: 650px;
 
-    min-height: 260px;
-
-    padding: 40px 35px;
-
+    min-height: 280px;
+    padding: 45px 35px;
     margin: 10px auto 25px;
 
     display: flex;
@@ -753,100 +678,75 @@ body {
     align-items: center;
     justify-content: center;
 
-    position: relative;
-
-    background: rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.82);
 
     border: 1px solid rgba(215, 139, 166, 0.3);
-
-    border-radius: 18px;
+    border-radius: 20px;
 
     box-shadow: 0 15px 45px rgba(130, 70, 100, 0.1);
 }
 
 .reason-counter {
     position: absolute;
-
     top: 18px;
     right: 22px;
 
-    font-size: 10px;
-
+    font-size: 12px;
     letter-spacing: 2px;
-
     color: var(--dark-pink);
 }
 
 .reason-heart {
-    font-size: 45px;
-
+    font-size: 48px;
     color: var(--pink);
-
     margin-bottom: 20px;
 }
 
 .reason-text {
-    max-width: 500px;
+    max-width: 540px;
 
     font-family: var(--heading-font);
-
-    font-size: clamp(21px, 4vw, 29px);
+    font-size: clamp(23px, 4vw, 31px);
     font-weight: 500;
-
-    line-height: 1.55;
+    line-height: 1.6;
 
     color: var(--wine);
-
     text-align: center;
+    white-space: pre-line;
 }
 
-
-/* =====================================
+/* =========================================
    SCREEN 6 - CAKE
-===================================== */
+========================================= */
 
 .cake-container {
     position: relative;
-
     width: 250px;
     height: 260px;
-
     margin: 30px auto 35px;
 }
 
 .cake-plate {
     position: absolute;
-
     bottom: 20px;
     left: 0;
 
     width: 250px;
     height: 16px;
 
-    background: linear-gradient(
-        to bottom,
-        #f5dce5,
-        #d9a4b7
-    );
-
+    background: linear-gradient(to bottom, #f5dce5, #d9a4b7);
     border-radius: 50%;
 }
 
 .cake-body {
     position: absolute;
-
     bottom: 35px;
     left: 25px;
 
     width: 200px;
     height: 110px;
 
-    background: linear-gradient(
-        135deg,
-        #f2b4c6,
-        #d96e99
-    );
-
+    background: linear-gradient(135deg, #f2b4c6, #d96e99);
     border-radius: 10px 10px 20px 20px;
 
     box-shadow: inset 0 -12px 0 rgba(150, 60, 100, 0.12);
@@ -854,7 +754,6 @@ body {
 
 .cake-top {
     position: absolute;
-
     bottom: 130px;
     left: 25px;
 
@@ -862,17 +761,13 @@ body {
     height: 30px;
 
     background: #fff0f4;
-
     border-radius: 50%;
-    
     z-index: 2;
 }
 
 .cake-body::before {
     content: "";
-
     position: absolute;
-
     top: -7px;
     left: 0;
 
@@ -880,34 +775,28 @@ body {
     height: 25px;
 
     background: #ffe4ed;
-
     border-radius: 50%;
 }
 
 .cake-decoration {
     position: absolute;
-
     bottom: 25px;
     left: 0;
     right: 0;
 
     text-align: center;
-
     font-size: 38px;
-
     color: #fff0f4;
 }
 
 .candles {
     position: absolute;
-
     bottom: 155px;
     left: 0;
     right: 0;
 
     display: flex;
     justify-content: center;
-
     gap: 35px;
 
     z-index: 4;
@@ -932,7 +821,6 @@ body {
 
 .flame {
     position: absolute;
-
     top: -23px;
     left: 0;
 
@@ -940,7 +828,6 @@ body {
     height: 19px;
 
     background: #ffb64d;
-
     border-radius: 50% 50% 45% 45%;
 
     box-shadow: 0 0 15px #ffbd55;
@@ -964,77 +851,56 @@ body {
 
 .cake-message {
     margin-top: 20px;
-
     font-family: var(--romantic-font);
-
-    font-size: 27px;
-
+    font-size: 30px;
     color: var(--dark-pink);
 }
 
-
-/* =====================================
+/* =========================================
    SCREEN 7 - FINAL WISH
-===================================== */
+========================================= */
 
 .final-content {
     width: 100%;
-    max-width: 680px;
-
+    max-width: 700px;
     padding: 20px;
 }
 
 .final-heart {
-    font-size: 65px;
-
+    font-size: 70px;
     color: var(--pink);
-
     animation: heartbeat 1.8s infinite;
-
     margin-bottom: 15px;
 }
 
 .final-title {
     font-family: var(--heading-font);
-
-    font-size: clamp(48px, 8vw, 85px);
-
+    font-size: clamp(50px, 8vw, 90px);
     line-height: 1;
-
     color: var(--wine);
 }
 
 .final-title span {
     display: block;
-
     font-family: var(--romantic-font);
-
-    font-size: clamp(65px, 11vw, 110px);
-
+    font-size: clamp(75px, 11vw, 115px);
     color: var(--dark-pink);
-
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .final-divider {
     margin: 25px 0;
-
-    font-size: 25px;
-
+    font-size: 28px;
     letter-spacing: 10px;
-
     color: var(--gold);
 }
 
 .final-message {
-    max-width: 550px;
-
+    max-width: 570px;
     margin: 0 auto;
 
     font-family: var(--heading-font);
-
-    font-size: clamp(19px, 3vw, 24px);
-
+    font-size: clamp(21px, 3vw, 26px);
     line-height: 1.7;
 
     color: var(--text);
@@ -1042,38 +908,27 @@ body {
 
 .final-love {
     font-family: var(--romantic-font);
-
-    font-size: 34px;
+    font-size: 37px;
     font-weight: 700;
-
     color: var(--dark-pink);
 }
 
 .final-signature {
     margin: 25px 0 30px;
-
     font-family: var(--romantic-font);
-
-    font-size: 31px;
-
+    font-size: 34px;
     color: var(--wine);
 }
 
-
-/* =====================================
+/* =========================================
    CONFETTI
-===================================== */
+========================================= */
 
 .confetti {
     position: fixed;
-
-    top: -15px;
-
-    width: 9px;
-    height: 14px;
+    top: -20px;
 
     pointer-events: none;
-
     z-index: 100;
 
     animation: confettiFall 3.5s linear forwards;
@@ -1086,123 +941,165 @@ body {
     }
 }
 
-
-/* =====================================
+/* =========================================
    MOBILE RESPONSIVE
-===================================== */
+========================================= */
 
 @media (max-width: 600px) {
 
     .screen {
-        padding: 45px 18px;
+        padding: 40px 18px;
     }
 
     .small-heading {
-        font-size: 9px;
-        letter-spacing: 2.5px;
+        font-size: 10px;
+        letter-spacing: 2.3px;
+    }
+
+    .section-title {
+        font-size: 43px;
     }
 
     .section-description {
-        font-size: 12px;
-        padding: 0 8px;
-    }
-
-    .welcome-content h1 {
-        font-size: 72px;
-    }
-
-    .welcome-message {
-        max-width: 280px;
+        font-size: 14px;
         line-height: 1.8;
     }
 
-    .gift-box {
-        transform: scale(0.9);
+    .welcome-content h1 {
+        font-size: 82px;
+    }
+
+    .welcome-message {
+        font-size: 15px;
+        line-height: 1.8;
+        max-width: 300px;
+    }
+
+    .gift-instruction {
+        font-size: 28px;
     }
 
     .birthday-title {
-        font-size: 55px;
+        font-size: 57px;
     }
 
     .birthday-title span {
-        font-size: 95px;
+        font-size: 105px;
     }
 
+    .birthday-subtitle {
+        font-size: 15px;
+    }
+
+    /* Balloons */
+
     .balloon-container {
+        min-height: 180px;
         gap: 13px;
     }
 
     .balloon {
         width: 62px;
-        height: 85px;
+        height: 86px;
     }
 
     .balloon-words {
-        gap: 12px;
+        gap: 10px;
+        min-height: 75px;
     }
 
     .balloon-word {
-        font-size: 25px;
+        font-size: 31px;
     }
 
+    .surprise-reveal h2 {
+        font-size: 42px;
+    }
+
+    .surprise-reveal p {
+        font-size: 28px;
+    }
+
+    /* Memories */
+
     .memory-card {
-        max-width: 340px;
+        max-width: 350px;
     }
 
     .memory-photo-frame {
-        height: 280px;
+        height: 290px;
     }
 
+    .memory-caption h3 {
+        font-size: 43px;
+    }
+
+    /* Reasons */
+
     .reason-card {
-        min-height: 300px;
-        padding: 45px 22px;
+        min-height: 310px;
+        padding: 48px 22px;
     }
 
     .reason-text {
-        font-size: 22px;
+        font-size: 24px;
+        line-height: 1.6;
     }
 
+    /* Cake */
+
     .cake-container {
-        transform: scale(0.9);
+        transform: scale(0.92);
         margin-top: 10px;
         margin-bottom: 10px;
     }
 
-    .final-content {
-        padding: 10px;
+    /* Final */
+
+    .final-title {
+        font-size: 55px;
+    }
+
+    .final-title span {
+        font-size: 82px;
     }
 
     .final-message {
-        font-size: 19px;
+        font-size: 21px;
+    }
+
+    .final-love {
+        font-size: 33px;
     }
 
     .final-signature {
-        font-size: 27px;
+        font-size: 31px;
     }
 
     .primary-button {
-        padding: 14px 24px;
+        min-width: 185px;
+        padding: 16px 25px;
+        font-size: 14px;
     }
 
 }
 
-
-/* =====================================
-   SMALL MOBILE DEVICES
-===================================== */
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
 
 @media (max-width: 360px) {
 
     .welcome-content h1 {
-        font-size: 60px;
+        font-size: 68px;
     }
 
     .birthday-title {
-        font-size: 45px;
+        font-size: 47px;
     }
 
     .birthday-title span {
-        font-size: 80px;
+        font-size: 88px;
     }
 
     .balloon {
@@ -1210,20 +1107,31 @@ body {
         height: 75px;
     }
 
+    .balloon-word {
+        font-size: 26px;
+    }
+
     .memory-photo-frame {
-        height: 230px;
+        height: 240px;
     }
 
     .cake-container {
         transform: scale(0.82);
     }
 
+    .final-title {
+        font-size: 47px;
+    }
+
+    .final-title span {
+        font-size: 70px;
+    }
+
 }
 
-
-/* =====================================
+/* =========================================
    ACCESSIBILITY
-===================================== */
+========================================= */
 
 button:focus-visible {
     outline: 3px solid var(--gold);
@@ -1238,3 +1146,4 @@ img {
     background: #f2b4c6;
     color: #763b52;
 }
+```
