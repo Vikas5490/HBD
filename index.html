@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Happy Birthday, Bubu ❤️</title>
 
-    <meta name="description" content="A little surprise made with lots of love. Happy Birthday, Bubu!">
+    <meta name="theme-color" content="#fff0f4">
+    <meta name="description" content="A beautiful birthday surprise made with love.">
 
     <!-- Romantic Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +16,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
     <!-- JavaScript -->
@@ -23,22 +25,24 @@
 
 <body>
 
-    <!-- Background Decorations -->
+    <!-- Floating Background Hearts -->
     <div class="background-hearts" id="backgroundHearts"></div>
 
-    <!-- Music -->
-    <audio id="birthdayMusic" src="birthday-song.mp3" loop preload="auto"></audio>
+    <!-- Birthday Music -->
+    <audio id="birthdayMusic" src="birthday-song.mp3" preload="auto" loop></audio>
 
 
-    <!-- =========================
-         SCREEN 1: WELCOME
-    ========================== -->
+    <!-- =================================
+         SCREEN 1: WELCOME & GIFT
+    ================================== -->
 
     <section class="screen active" id="welcomeScreen">
 
         <div class="welcome-content">
 
-            <p class="small-heading">A SPECIAL DAY FOR SOMEONE SPECIAL</p>
+            <p class="small-heading">
+                A SPECIAL DAY FOR SOMEONE SPECIAL
+            </p>
 
             <div class="welcome-heart">♡</div>
 
@@ -50,7 +54,7 @@
 
             <div class="gift-container">
 
-                <button class="gift-button" id="openGift" aria-label="Open your birthday gift">
+                <button class="gift-button" id="openGift" aria-label="Open birthday gift">
 
                     <div class="gift-box">
 
@@ -77,29 +81,36 @@
     </section>
 
 
-    <!-- =========================
-         SCREEN 2: HAPPY BIRTHDAY
-    ========================== -->
+    <!-- =================================
+         SCREEN 2: HAPPY BIRTHDAY MESSAGE
+    ================================== -->
 
     <section class="screen" id="birthdayScreen">
 
         <div class="birthday-content">
 
-            <p class="small-heading">TODAY IS ALL ABOUT YOU</p>
+            <p class="small-heading">
+                TODAY IS ALL ABOUT YOU
+            </p>
 
             <h1 class="birthday-title">
+
                 Happy Birthday
+
                 <span>Bubu!</span>
+
             </h1>
 
             <p class="birthday-subtitle">
                 You make my world a little more beautiful every day.
             </p>
 
-            <div class="birthday-decoration">♡ ✨ ♡</div>
+            <div class="birthday-decoration">
+                ♡ ✨ ♡
+            </div>
 
             <button class="primary-button" id="continueToBalloons">
-                Let's Begin <span>♡</span>
+                Let's Begin ♡
             </button>
 
         </div>
@@ -107,61 +118,63 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =================================
          SCREEN 3: BALLOONS
-    ========================== -->
+         No heading or instruction here.
+    ================================== -->
 
     <section class="screen" id="balloonScreen">
 
-        <div class="section-content">
-
-            <p class="small-heading">A LITTLE SURPRISE</p>
-
-            <h2 class="section-title">
-                Pop the balloons!
-            </h2>
-
-            <p class="section-description">
-                There is a little message hidden inside each balloon.
-            </p>
+        <div class="balloon-content">
 
             <div class="balloon-container">
 
-                <button class="balloon" data-balloon="0" aria-label="Pop balloon one">
+                <button class="balloon" data-balloon="0" aria-label="Pop first balloon">
                     <span class="balloon-string"></span>
                 </button>
 
-                <button class="balloon" data-balloon="1" aria-label="Pop balloon two">
+                <button class="balloon" data-balloon="1" aria-label="Pop second balloon">
                     <span class="balloon-string"></span>
                 </button>
 
-                <button class="balloon" data-balloon="2" aria-label="Pop balloon three">
+                <button class="balloon" data-balloon="2" aria-label="Pop third balloon">
                     <span class="balloon-string"></span>
                 </button>
 
-                <button class="balloon" data-balloon="3" aria-label="Pop balloon four">
+                <button class="balloon" data-balloon="3" aria-label="Pop fourth balloon">
                     <span class="balloon-string"></span>
                 </button>
 
             </div>
+
+
+            <!-- Words appear one by one -->
 
             <div class="balloon-words">
 
                 <span class="balloon-word" id="word0"></span>
+
                 <span class="balloon-word" id="word1"></span>
+
                 <span class="balloon-word" id="word2"></span>
+
                 <span class="balloon-word" id="word3"></span>
 
             </div>
 
+
+            <!-- Final Surprise -->
+
             <div class="surprise-reveal" id="surpriseReveal">
 
-                <h2>A LITTLE SURPRISE</h2>
+                <h2>A LITTLE SURPRISE FOR YOU ❤️</h2>
 
-                <p>Just for you, my love! ❤️</p>
+                <p>
+                    Just for you, my love!
+                </p>
 
                 <button class="primary-button" id="continueToMemories">
-                    See Our Memories ♡
+                    Our Beautiful Memories ♡
                 </button>
 
             </div>
@@ -171,15 +184,17 @@
     </section>
 
 
-    <!-- =========================
-         SCREEN 4: MEMORIES
-    ========================== -->
+    <!-- =================================
+         SCREEN 4: OUR MEMORIES
+    ================================== -->
 
     <section class="screen" id="memoriesScreen">
 
         <div class="section-content">
 
-            <p class="small-heading">OUR LITTLE WORLD</p>
+            <p class="small-heading">
+                OUR LITTLE WORLD
+            </p>
 
             <h2 class="section-title">
                 Moments to Remember
@@ -189,6 +204,7 @@
                 Every picture holds a beautiful piece of our story.
             </p>
 
+
             <div class="memory-card" id="memoryCard">
 
                 <div class="memory-photo-frame">
@@ -196,10 +212,11 @@
                     <img
                         id="memoryImage"
                         src="memory-1.jpg"
-                        alt="Our beautiful memory"
+                        alt="Our First Meeting"
                     >
 
                 </div>
+
 
                 <div class="memory-caption">
 
@@ -212,12 +229,13 @@
                     </h3>
 
                     <p id="memoryDescription">
-                        The day our beautiful story began.
+                        The day our beautiful story began. ❤️
                     </p>
 
                 </div>
 
             </div>
+
 
             <button class="primary-button" id="nextMemory">
                 Next Memory ♡
@@ -228,15 +246,17 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =================================
          SCREEN 5: TEN REASONS
-    ========================== -->
+    ================================== -->
 
     <section class="screen" id="reasonsScreen">
 
         <div class="section-content">
 
-            <p class="small-heading">FROM MY HEART TO YOURS</p>
+            <p class="small-heading">
+                FROM MY HEART TO YOURS
+            </p>
 
             <h2 class="section-title">
                 10 Things I Love About You
@@ -246,17 +266,21 @@
                 Ten little reasons, among countless others...
             </p>
 
+
             <div class="reason-card">
 
                 <div class="reason-counter" id="reasonCounter">
                     01 / 10
                 </div>
 
-                <div class="reason-heart">♡</div>
+                <div class="reason-heart">
+                    ♡
+                </div>
 
                 <p class="reason-text" id="reasonText"></p>
 
             </div>
+
 
             <button class="primary-button" id="nextReason">
                 Next Reason ♡
@@ -267,15 +291,17 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =================================
          SCREEN 6: BIRTHDAY CAKE
-    ========================== -->
+    ================================== -->
 
     <section class="screen" id="cakeScreen">
 
         <div class="section-content">
 
-            <p class="small-heading">MAKE A WISH, MY LOVE</p>
+            <p class="small-heading">
+                MAKE A WISH, MY LOVE
+            </p>
 
             <h2 class="section-title">
                 A Cake Just For You!
@@ -284,6 +310,7 @@
             <p class="section-description">
                 Close your eyes, make a wish and blow the candles.
             </p>
+
 
             <div class="cake-container">
 
@@ -303,15 +330,21 @@
 
                 </div>
 
+
                 <div class="cake-top"></div>
 
                 <div class="cake-body">
-                    <div class="cake-decoration">♡</div>
+
+                    <div class="cake-decoration">
+                        ♡
+                    </div>
+
                 </div>
 
                 <div class="cake-plate"></div>
 
             </div>
+
 
             <button class="primary-button" id="blowCandles">
                 Blow the Candles ✨
@@ -324,24 +357,35 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =================================
          SCREEN 7: FINAL WISH
-    ========================== -->
+    ================================== -->
 
     <section class="screen" id="finalScreen">
 
         <div class="final-content">
 
-            <div class="final-heart">♡</div>
+            <div class="final-heart">
+                ♡
+            </div>
 
-            <p class="small-heading">WITH ALL MY LOVE</p>
+            <p class="small-heading">
+                WITH ALL MY LOVE
+            </p>
 
             <h1 class="final-title">
+
                 Happy Birthday,
+
                 <span>My Bubu!</span>
+
             </h1>
 
-            <div class="final-divider">♡ ✨ ♡</div>
+
+            <div class="final-divider">
+                ♡ ✨ ♡
+            </div>
+
 
             <p class="final-message">
 
@@ -367,9 +411,11 @@
 
             </p>
 
+
             <p class="final-signature">
                 Love you, Mera Gulla! 🧿
             </p>
+
 
             <button class="primary-button" id="replayButton">
                 Relive Our Little Story ♡
@@ -379,6 +425,6 @@
 
     </section>
 
-
 </body>
+
 </html>
