@@ -1,556 +1,384 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f7c7d6">
 
-    <title>For My Bubu ❤️</title>
+    <title>Happy Birthday, Bubu ❤️</title>
 
+    <meta name="description" content="A little surprise made with lots of love. Happy Birthday, Bubu!">
+
+    <!-- Romantic Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
-<div class="ambient"></div>
-<div class="floating-hearts" id="floatingHearts"></div>
+    <!-- Background Decorations -->
+    <div class="background-hearts" id="backgroundHearts"></div>
 
-<main>
-
-<!-- SCREEN 1: GIFT BOX -->
-
-<section class="screen active" id="welcome">
-
-    <div class="intro-tag">
-        A LITTLE SOMETHING, MADE WITH LOVE
-    </div>
-
-    <h1 class="hero-title">
-        For my favourite<br>
-        <em>person</em>
-    </h1>
-
-    <p class="subline">
-        A little surprise is waiting for you, Bubu...
-    </p>
-
-    <button class="gift-button" id="openGift">
-
-        <span class="gift-glow"></span>
-
-        <span class="gift-box">
-
-            <span class="gift-lid">
-                <i></i>
-            </span>
-
-            <span class="gift-body">
-                <i></i>
-                <b></b>
-            </span>
-
-            <span class="gift-bow">♡</span>
-
-        </span>
-
-        <span class="gift-hint">
-            TAP TO OPEN
-        </span>
-
-    </button>
-
-    <p class="tiny-note">
-        Made especially for you ♡
-    </p>
-
-</section>
+    <!-- Music -->
+    <audio id="birthdayMusic" src="birthday-song.mp3" loop preload="auto"></audio>
 
 
-<!-- SCREEN 2: BIRTHDAY WISH -->
+    <!-- =========================
+         SCREEN 1: WELCOME
+    ========================== -->
 
-<section class="screen" id="birthday">
+    <section class="screen active" id="welcomeScreen">
 
-    <div class="eyebrow">
-        TODAY IS ALL ABOUT YOU
-    </div>
+        <div class="welcome-content">
 
-    <div class="birthday-sparkle">✦</div>
+            <p class="small-heading">A SPECIAL DAY FOR SOMEONE SPECIAL</p>
 
-    <h2 class="birthday-title">
-        Happy Birthday,<br>
-        <em>Bubu!</em>
-    </h2>
+            <div class="welcome-heart">♡</div>
 
-    <p class="birthday-copy">
-        To my love, my favourite human and my forever person.
-    </p>
+            <h1>Hey, Bubu!</h1>
 
-    <div class="cake-illustration">
+            <p class="welcome-message">
+                Someone has a little surprise waiting for you...
+            </p>
 
-        <div class="cake-candle">
-            <span class="flame"></span>
+            <div class="gift-container">
+
+                <button class="gift-button" id="openGift" aria-label="Open your birthday gift">
+
+                    <div class="gift-box">
+
+                        <div class="gift-lid"></div>
+
+                        <div class="gift-ribbon"></div>
+
+                        <div class="gift-body"></div>
+
+                        <div class="gift-bow"></div>
+
+                    </div>
+
+                </button>
+
+            </div>
+
+            <p class="gift-instruction">
+                Tap the gift to open your surprise ♡
+            </p>
+
         </div>
 
-        <div class="cake-top"></div>
-        <div class="cake-middle"></div>
-        <div class="cake-bottom"></div>
-        <div class="cake-plate"></div>
-
-    </div>
-
-    <button class="primary-btn" data-next="balloons">
-        Continue to your surprise →
-    </button>
-
-</section>
+    </section>
 
 
-<!-- SCREEN 3: FOUR BALLOONS -->
+    <!-- =========================
+         SCREEN 2: HAPPY BIRTHDAY
+    ========================== -->
 
-<section class="screen" id="balloons">
+    <section class="screen" id="birthdayScreen">
 
-    <div class="eyebrow">
-        A LITTLE GAME FOR YOU
-    </div>
+        <div class="birthday-content">
 
-    <h2 class="section-title">
-        Pop the balloons<br>
-        <em>one by one</em>
-    </h2>
+            <p class="small-heading">TODAY IS ALL ABOUT YOU</p>
 
-    <p class="section-copy">
-        There are four little words waiting just for you.
-    </p>
+            <h1 class="birthday-title">
+                Happy Birthday
+                <span>Bubu!</span>
+            </h1>
 
-    <div class="balloon-stage" id="balloonStage">
+            <p class="birthday-subtitle">
+                You make my world a little more beautiful every day.
+            </p>
 
-        <div class="balloon-item">
+            <div class="birthday-decoration">♡ ✨ ♡</div>
 
-            <span class="revealed-word"></span>
-
-            <button class="balloon balloon-pink">
-                <i></i>
+            <button class="primary-button" id="continueToBalloons">
+                Let's Begin <span>♡</span>
             </button>
 
-            <span class="balloon-number">01</span>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SCREEN 3: BALLOONS
+    ========================== -->
+
+    <section class="screen" id="balloonScreen">
+
+        <div class="section-content">
+
+            <p class="small-heading">A LITTLE SURPRISE</p>
+
+            <h2 class="section-title">
+                Pop the balloons!
+            </h2>
+
+            <p class="section-description">
+                There is a little message hidden inside each balloon.
+            </p>
+
+            <div class="balloon-container">
+
+                <button class="balloon" data-balloon="0" aria-label="Pop balloon one">
+                    <span class="balloon-string"></span>
+                </button>
+
+                <button class="balloon" data-balloon="1" aria-label="Pop balloon two">
+                    <span class="balloon-string"></span>
+                </button>
+
+                <button class="balloon" data-balloon="2" aria-label="Pop balloon three">
+                    <span class="balloon-string"></span>
+                </button>
+
+                <button class="balloon" data-balloon="3" aria-label="Pop balloon four">
+                    <span class="balloon-string"></span>
+                </button>
+
+            </div>
+
+            <div class="balloon-words">
+
+                <span class="balloon-word" id="word0"></span>
+                <span class="balloon-word" id="word1"></span>
+                <span class="balloon-word" id="word2"></span>
+                <span class="balloon-word" id="word3"></span>
+
+            </div>
+
+            <div class="surprise-reveal" id="surpriseReveal">
+
+                <h2>A LITTLE SURPRISE</h2>
+
+                <p>Just for you, my love! ❤️</p>
+
+                <button class="primary-button" id="continueToMemories">
+                    See Our Memories ♡
+                </button>
+
+            </div>
 
         </div>
 
+    </section>
 
-        <div class="balloon-item">
 
-            <span class="revealed-word"></span>
+    <!-- =========================
+         SCREEN 4: MEMORIES
+    ========================== -->
 
-            <button class="balloon balloon-rose">
-                <i></i>
+    <section class="screen" id="memoriesScreen">
+
+        <div class="section-content">
+
+            <p class="small-heading">OUR LITTLE WORLD</p>
+
+            <h2 class="section-title">
+                Moments to Remember
+            </h2>
+
+            <p class="section-description">
+                Every picture holds a beautiful piece of our story.
+            </p>
+
+            <div class="memory-card" id="memoryCard">
+
+                <div class="memory-photo-frame">
+
+                    <img
+                        id="memoryImage"
+                        src="memory-1.jpg"
+                        alt="Our beautiful memory"
+                    >
+
+                </div>
+
+                <div class="memory-caption">
+
+                    <p class="memory-number" id="memoryNumber">
+                        MEMORY 01
+                    </p>
+
+                    <h3 id="memoryTitle">
+                        First Meeting
+                    </h3>
+
+                    <p id="memoryDescription">
+                        The day our beautiful story began.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button class="primary-button" id="nextMemory">
+                Next Memory ♡
             </button>
 
-            <span class="balloon-number">02</span>
-
         </div>
 
+    </section>
 
-        <div class="balloon-item">
 
-            <span class="revealed-word"></span>
+    <!-- =========================
+         SCREEN 5: TEN REASONS
+    ========================== -->
 
-            <button class="balloon balloon-peach">
-                <i></i>
+    <section class="screen" id="reasonsScreen">
+
+        <div class="section-content">
+
+            <p class="small-heading">FROM MY HEART TO YOURS</p>
+
+            <h2 class="section-title">
+                10 Things I Love About You
+            </h2>
+
+            <p class="section-description">
+                Ten little reasons, among countless others...
+            </p>
+
+            <div class="reason-card">
+
+                <div class="reason-counter" id="reasonCounter">
+                    01 / 10
+                </div>
+
+                <div class="reason-heart">♡</div>
+
+                <p class="reason-text" id="reasonText"></p>
+
+            </div>
+
+            <button class="primary-button" id="nextReason">
+                Next Reason ♡
             </button>
 
-            <span class="balloon-number">03</span>
-
         </div>
 
+    </section>
 
-        <div class="balloon-item">
 
-            <span class="revealed-word"></span>
+    <!-- =========================
+         SCREEN 6: BIRTHDAY CAKE
+    ========================== -->
 
-            <button class="balloon balloon-lilac">
-                <i></i>
+    <section class="screen" id="cakeScreen">
+
+        <div class="section-content">
+
+            <p class="small-heading">MAKE A WISH, MY LOVE</p>
+
+            <h2 class="section-title">
+                A Cake Just For You!
+            </h2>
+
+            <p class="section-description">
+                Close your eyes, make a wish and blow the candles.
+            </p>
+
+            <div class="cake-container">
+
+                <div class="candles">
+
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+
+                </div>
+
+                <div class="cake-top"></div>
+
+                <div class="cake-body">
+                    <div class="cake-decoration">♡</div>
+                </div>
+
+                <div class="cake-plate"></div>
+
+            </div>
+
+            <button class="primary-button" id="blowCandles">
+                Blow the Candles ✨
             </button>
 
-            <span class="balloon-number">04</span>
+            <p class="cake-message" id="cakeMessage"></p>
 
         </div>
 
-    </div>
-
-    <p class="pop-progress" id="popProgress">
-        4 surprises are waiting to be revealed
-    </p>
-
-    <div class="balloon-finale" id="balloonFinale">
-
-        A LITTLE <span>SURPRISE</span> FOR <b>YOU ♡</b>
-
-    </div>
-
-    <button class="primary-btn hidden" id="toMemories">
-        See our beautiful memories →
-    </button>
-
-</section>
+    </section>
 
 
-<!-- SCREEN 4: MEMORIES -->
+    <!-- =========================
+         SCREEN 7: FINAL WISH
+    ========================== -->
 
-<section class="screen" id="memories">
+    <section class="screen" id="finalScreen">
 
-    <div class="eyebrow">
-        A JOURNEY CALLED US
-    </div>
+        <div class="final-content">
 
-    <h2 class="section-title">
-        Our beautiful<br>
-        <em>memories</em>
-    </h2>
+            <div class="final-heart">♡</div>
 
-    <p class="section-copy">
-        Every little moment brought me closer to forever with you.
-    </p>
+            <p class="small-heading">WITH ALL MY LOVE</p>
 
+            <h1 class="final-title">
+                Happy Birthday,
+                <span>My Bubu!</span>
+            </h1>
 
-    <div class="memory-grid">
+            <div class="final-divider">♡ ✨ ♡</div>
 
-        <!-- FIRST MEETING -->
+            <p class="final-message">
 
-        <article class="memory-card">
+                You are my favourite person, my happiest place
+                and my most beautiful blessing.
 
-            <div class="photo-wrap">
+                <br><br>
 
-                <img src="images/memory-1.jpg"
-                     alt="Our first meeting">
+                I wish you endless happiness, success,
+                good health and all the beautiful things
+                your heart desires.
 
-                <span class="photo-fallback">
-                    Add<br>Photo 01
+                <br><br>
+
+                May we keep making memories, laughing together
+                and choosing each other every single day.
+
+                <br><br>
+
+                <span class="final-love">
+                    Forever yours, my love. ❤️
                 </span>
 
-                <span class="memory-index">01</span>
+            </p>
 
-            </div>
+            <p class="final-signature">
+                Love you, Mera Gulla! 🧿
+            </p>
 
-            <div class="memory-caption">
-
-                <span>THE BEGINNING</span>
-
-                <h3>Our First Meeting</h3>
-
-                <p>
-                    The day our story began.
-                    A moment that quietly changed everything.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <!-- ROKA -->
-
-        <article class="memory-card">
-
-            <div class="photo-wrap">
-
-                <img src="images/memory-2.jpg"
-                     alt="Our roka ceremony">
-
-                <span class="photo-fallback">
-                    Add<br>Photo 02
-                </span>
-
-                <span class="memory-index">02</span>
-
-            </div>
-
-            <div class="memory-caption">
-
-                <span>A PROMISE</span>
-
-                <h3>Our Roka</h3>
-
-                <p>
-                    The beginning of a beautiful forever,
-                    with our families and blessings.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <!-- ENGAGEMENT -->
-
-        <article class="memory-card">
-
-            <div class="photo-wrap">
-
-                <img src="images/memory-3.jpg"
-                     alt="Our engagement">
-
-                <span class="photo-fallback">
-                    Add<br>Photo 03
-                </span>
-
-                <span class="memory-index">03</span>
-
-            </div>
-
-            <div class="memory-caption">
-
-                <span>ONE STEP CLOSER</span>
-
-                <h3>Our Engagement</h3>
-
-                <p>
-                    One more beautiful yes,
-                    and one step closer to our forever.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <!-- WEDDING -->
-
-        <article class="memory-card">
-
-            <div class="photo-wrap">
-
-                <img src="images/memory-4.jpg"
-                     alt="Our wedding">
-
-                <span class="photo-fallback">
-                    Add<br>Photo 04
-                </span>
-
-                <span class="memory-index">04</span>
-
-            </div>
-
-            <div class="memory-caption">
-
-                <span>MY FOREVER</span>
-
-                <h3>Our Wedding</h3>
-
-                <p>
-                    The day I got to call you mine,
-                    and chose you for all my tomorrows.
-                </p>
-
-            </div>
-
-        </article>
-
-    </div>
-
-
-    <button class="primary-btn" data-next="reasons">
-        A few things I love about you →
-    </button>
-
-</section>
-
-
-<!-- SCREEN 5: TEN REASONS -->
-
-<section class="screen" id="reasons">
-
-    <div class="eyebrow">
-        STRAIGHT FROM MY HEART
-    </div>
-
-    <h2 class="section-title">
-        10 reasons why<br>
-        <em>I love you</em>
-    </h2>
-
-
-    <div class="letter-card">
-
-        <div class="letter-top">
-
-            <span id="reasonCount">01 / 10</span>
-
-            <span>♡</span>
-
-        </div>
-
-
-        <div class="reason-number" id="reasonNumber">
-            01
-        </div>
-
-
-        <p class="reason-text" id="reasonText"></p>
-
-
-        <div class="letter-bottom">
-
-            <span>WITH ALL MY LOVE</span>
-
-            <span>♡</span>
-
-        </div>
-
-    </div>
-
-
-    <div class="reason-controls">
-
-        <button class="secondary-btn" id="prevReason" disabled>
-            ← Back
-        </button>
-
-        <button class="primary-btn" id="nextReason">
-            Next →
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- SCREEN 6: BIRTHDAY CAKE -->
-
-<section class="screen" id="cake">
-
-    <div class="eyebrow">
-        MAKE A WISH, BUBU
-    </div>
-
-    <h2 class="section-title">
-        One wish.<br>
-        <em>A thousand blessings.</em>
-    </h2>
-
-    <p class="section-copy">
-        Close your eyes, make a wish and blow out your candles.
-    </p>
-
-
-    <div class="premium-cake" id="premiumCake">
-
-        <div class="candles">
-
-            <button class="candle">
-                <i class="wick"></i>
-                <i class="candle-flame"></i>
-            </button>
-
-            <button class="candle">
-                <i class="wick"></i>
-                <i class="candle-flame"></i>
-            </button>
-
-            <button class="candle">
-                <i class="wick"></i>
-                <i class="candle-flame"></i>
+            <button class="primary-button" id="replayButton">
+                Relive Our Little Story ♡
             </button>
 
         </div>
 
-        <div class="frosting"></div>
+    </section>
 
-        <div class="cake-tier tier-one"></div>
-
-        <div class="cake-tier tier-two"></div>
-
-        <div class="cake-board"></div>
-
-    </div>
-
-
-    <button class="primary-btn" id="blowCandles">
-        Blow out the candles ✨
-    </button>
-
-    <p class="wish-message" id="wishMessage">
-        Make your wish… I hope all your dreams come true. ❤️
-    </p>
-
-    <button class="primary-btn hidden" id="toFinal">
-        One last thing… →
-    </button>
-
-</section>
-
-
-<!-- SCREEN 7: FINAL BIRTHDAY WISH -->
-
-<section class="screen" id="final">
-
-    <div class="final-heart">♡</div>
-
-    <div class="eyebrow">
-        MY ALWAYS AND FOREVER
-    </div>
-
-
-    <h2 class="final-title">
-        Happy Birthday,<br>
-        <em>my Bubu!</em>
-    </h2>
-
-
-    <p class="final-message">
-
-        You are my today, my tomorrow and my forever.
-
-        <br>
-
-        Every lifetime, every version of me —
-        I would still choose you.
-
-    </p>
-
-
-    <div class="final-divider">
-        ✦ &nbsp; ♡ &nbsp; ✦
-    </div>
-
-
-    <p class="final-signoff">
-        Love you, Mera Gulla! ❤️🧿
-    </p>
-
-
-    <button class="secondary-btn replay-btn" id="replay">
-        Replay our little surprise ↻
-    </button>
-
-</section>
-
-</main>
-
-
-<!-- MUSIC CONTROL -->
-
-<button class="music-toggle" id="musicToggle">
-    ♫ <span>Music</span>
-</button>
-
-
-<audio id="birthdayMusic"
-       src="birthday-song.mp3"
-       preload="none"
-       loop>
-</audio>
-
-
-<!-- JAVASCRIPT -->
-
-<script src="script.js"></script>
 
 </body>
 </html>
-```
