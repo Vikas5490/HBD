@@ -1,4 +1,4 @@
-```javascript
+
 /* =========================================
    BUBU BIRTHDAY WEBSITE
    FINAL JAVASCRIPT
@@ -658,4 +658,3 @@ document.getElementById("replayButton")
 ========================================= */
 
 console.log("Bubu's Birthday Surprise is Ready! ❤️");
-```
