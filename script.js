@@ -1,25 +1,15 @@
-/* =====================================
+```javascript
+/* =========================================
    BUBU BIRTHDAY WEBSITE
-   COMPLETE JAVASCRIPT
-===================================== */
+   FINAL JAVASCRIPT
+========================================= */
 
 
-/* =====================================
-   ELEMENTS
-===================================== */
+/* =========================================
+   1. SCREEN NAVIGATION
+========================================= */
 
-const screens = document.querySelectorAll(".screen");
-
-const music = document.getElementById("birthdayMusic");
-
-const openGift = document.getElementById("openGift");
-
-const backgroundHearts = document.getElementById("backgroundHearts");
-
-
-/* =====================================
-   SCREEN NAVIGATION
-===================================== */
+let screenTimer;
 
 function showScreen(screenId) {
 
@@ -28,36 +18,39 @@ function showScreen(screenId) {
 
     if (!nextScreen || currentScreen === nextScreen) return;
 
+    clearTimeout(screenTimer);
+
     if (currentScreen) {
 
         currentScreen.classList.add("leaving");
 
-        setTimeout(() => {
+        screenTimer = setTimeout(() => {
 
-            currentScreen.classList.remove("active");
-            currentScreen.classList.remove("leaving");
+            currentScreen.classList.remove("active", "leaving");
 
-        }, 650);
+            nextScreen.classList.add("active");
 
-    }
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
-    setTimeout(() => {
+        }, 450);
+
+    } else {
 
         nextScreen.classList.add("active");
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }, currentScreen ? 300 : 0);
+    }
 
 }
 
 
-/* =====================================
-   BACKGROUND FLOATING HEARTS
-===================================== */
+/* =========================================
+   2. FLOATING HEARTS
+========================================= */
+
+const backgroundHearts = document.getElementById("backgroundHearts");
 
 function createFloatingHearts() {
 
@@ -69,7 +62,7 @@ function createFloatingHearts() {
 
         heart.className = "floating-heart";
 
-        heart.innerHTML = Math.random() > 0.5 ? "♡" : "♥";
+        heart.textContent = Math.random() > 0.5 ? "♡" : "♥";
 
         heart.style.left = Math.random() * 100 + "%";
 
@@ -88,61 +81,69 @@ function createFloatingHearts() {
 createFloatingHearts();
 
 
-/* =====================================
-   MUSIC + GIFT OPENING
-===================================== */
+/* =========================================
+   3. MUSIC + GIFT OPENING
+========================================= */
+
+const music = document.getElementById("birthdayMusic");
+
+const openGift = document.getElementById("openGift");
 
 let musicStarted = false;
+let giftOpened = false;
 
 openGift.addEventListener("click", async function () {
 
-    if (openGift.classList.contains("opened")) return;
+    if (giftOpened) return;
+
+    giftOpened = true;
 
     openGift.classList.add("opened");
 
-    // Music starts automatically on first gift click
-    if (!musicStarted) {
+    // Music starts on gift click
+    try {
 
-        try {
+        await music.play();
 
-            await music.play();
+        musicStarted = true;
 
-            musicStarted = true;
+    } catch (error) {
 
-        } catch (error) {
-
-            console.log("Music could not start:", error);
-
-        }
+        console.error("Music playback issue:", error);
 
     }
 
     setTimeout(() => {
 
-        showScreen("birthdayScreen");
-
         launchConfetti();
+
+        showScreen("birthdayScreen");
 
     }, 1100);
 
 });
 
 
-/* =====================================
-   SCREEN 2 - CONTINUE
-===================================== */
+/* =========================================
+   4. BIRTHDAY SCREEN
+========================================= */
 
 document.getElementById("continueToBalloons")
     .addEventListener("click", function () {
+
+        resetBalloons();
+
+        // Directly open balloons.
+        // No extra welcome text or heading.
 
         showScreen("balloonScreen");
 
     });
 
 
-/* =====================================
-   SCREEN 3 - BALLOONS
-===================================== */
+/* =========================================
+   5. BALLOONS - WORD REVEAL
+========================================= */
 
 const balloons = document.querySelectorAll(".balloon");
 
@@ -150,65 +151,111 @@ const balloonWords = [
     "A LITTLE",
     "SURPRISE",
     "FOR",
-    "YOU"
+    "YOU ❤️"
 ];
 
 let poppedBalloons = 0;
+
+let balloonsFinished = false;
+
+
+function popBalloon(balloon, index) {
+
+    if (balloon.classList.contains("popped")) return;
+
+    balloon.classList.add("popped");
+
+    poppedBalloons++;
+
+    const word = document.getElementById("word" + index);
+
+    word.textContent = balloonWords[index];
+
+    // Restart word animation
+    word.style.animation = "none";
+
+    void word.offsetWidth;
+
+    word.style.animation = "wordReveal 0.75s cubic-bezier(.16,1,.3,1) both";
+
+    createMiniConfetti();
+
+    if (poppedBalloons === 4 && !balloonsFinished) {
+
+        balloonsFinished = true;
+
+        setTimeout(() => {
+
+            document.getElementById("surpriseReveal")
+                .classList.add("show");
+
+            launchConfetti();
+
+        }, 900);
+
+    }
+
+}
+
 
 balloons.forEach((balloon, index) => {
 
     balloon.addEventListener("click", function () {
 
-        if (balloon.classList.contains("popped")) return;
-
-        balloon.classList.add("popped");
-
-        poppedBalloons++;
-
-        // Show word at the balloon's position
-        document.getElementById("word" + index).textContent =
-            balloonWords[index];
-
-        // Small confetti celebration
-        createMiniConfetti();
-
-        if (poppedBalloons === 4) {
-
-            setTimeout(() => {
-
-                document.getElementById("surpriseReveal")
-                    .classList.add("show");
-
-                launchConfetti();
-
-            }, 600);
-
-        }
+        popBalloon(balloon, index);
 
     });
 
 });
 
 
-/* =====================================
-   CONTINUE TO MEMORIES
-===================================== */
+function resetBalloons() {
+
+    poppedBalloons = 0;
+
+    balloonsFinished = false;
+
+    balloons.forEach((balloon) => {
+
+        balloon.classList.remove("popped");
+
+    });
+
+    for (let i = 0; i < 4; i++) {
+
+        const word = document.getElementById("word" + i);
+
+        word.textContent = "";
+
+        word.style.animation = "";
+
+    }
+
+    document.getElementById("surpriseReveal")
+        .classList.remove("show");
+
+}
+
+
+/* =========================================
+   6. CONTINUE TO MEMORIES
+========================================= */
 
 document.getElementById("continueToMemories")
     .addEventListener("click", function () {
 
-        showScreen("memoriesScreen");
-
         currentMemory = 0;
+
+        showScreen("memoriesScreen");
 
         displayMemory();
 
     });
 
 
-/* =====================================
-   SCREEN 4 - MEMORY SLIDESHOW
-===================================== */
+/* =========================================
+   7. MEMORY SLIDESHOW
+========================================= */
 
 const memories = [
 
@@ -244,8 +291,12 @@ const memories = [
 
 let currentMemory = 0;
 
+let memoryLoading = false;
+
 
 function displayMemory() {
+
+    if (memoryLoading) return;
 
     const memory = memories[currentMemory];
 
@@ -253,42 +304,90 @@ function displayMemory() {
 
     const card = document.getElementById("memoryCard");
 
-    image.src = memory.image;
-
-    image.alt = memory.title;
-
-    document.getElementById("memoryNumber").textContent =
-        memory.number;
-
-    document.getElementById("memoryTitle").textContent =
-        memory.title;
-
-    document.getElementById("memoryDescription").textContent =
-        memory.description;
-
-    card.style.animation = "none";
-
-    void card.offsetWidth;
-
-    card.style.animation = "revealText 0.7s ease";
-
     const nextButton = document.getElementById("nextMemory");
 
-    if (currentMemory === memories.length - 1) {
+    memoryLoading = true;
 
-        nextButton.textContent = "Read My Heart ♡";
+    nextButton.disabled = true;
 
-    } else {
+    nextButton.style.opacity = "0.5";
 
-        nextButton.textContent = "Next Memory ♡";
+    image.style.opacity = "0";
 
-    }
+    // Create a fresh image object to verify the next photo.
+    // This prevents the previous photo from remaining visible
+    // if the next photo is still loading.
+
+    const newImage = new Image();
+
+    newImage.onload = function () {
+
+        image.src = memory.image;
+
+        image.alt = memory.title;
+
+        document.getElementById("memoryNumber").textContent =
+            memory.number;
+
+        document.getElementById("memoryTitle").textContent =
+            memory.title;
+
+        document.getElementById("memoryDescription").textContent =
+            memory.description;
+
+        image.style.opacity = "1";
+
+        card.style.animation = "none";
+
+        void card.offsetWidth;
+
+        card.style.animation = "revealText 0.7s ease";
+
+        nextButton.textContent =
+            currentMemory === 3
+                ? "Read My Heart ♡"
+                : "Next Memory ♡";
+
+        nextButton.disabled = false;
+
+        nextButton.style.opacity = "1";
+
+        memoryLoading = false;
+
+    };
+
+    newImage.onerror = function () {
+
+        image.style.opacity = "1";
+
+        image.alt = "Unable to load " + memory.image;
+
+        document.getElementById("memoryTitle").textContent =
+            "Photo not found";
+
+        document.getElementById("memoryDescription").textContent =
+            "Please check the file: " + memory.image;
+
+        nextButton.disabled = false;
+
+        nextButton.style.opacity = "1";
+
+        memoryLoading = false;
+
+        console.error("Image loading failed:", memory.image);
+
+    };
+
+    // Load exact next image
+    newImage.src = memory.image;
 
 }
 
 
 document.getElementById("nextMemory")
     .addEventListener("click", function () {
+
+        if (memoryLoading) return;
 
         if (currentMemory < memories.length - 1) {
 
@@ -298,20 +397,20 @@ document.getElementById("nextMemory")
 
         } else {
 
-            showScreen("reasonsScreen");
-
             currentReason = 0;
 
             displayReason();
+
+            showScreen("reasonsScreen");
 
         }
 
     });
 
 
-/* =====================================
-   SCREEN 5 - TEN REASONS
-===================================== */
+/* =========================================
+   8. TEN REASONS
+========================================= */
 
 const reasons = [
 
@@ -342,23 +441,21 @@ let currentReason = 0;
 
 function displayReason() {
 
-    document.getElementById("reasonCounter").textContent =
+    const counter = document.getElementById("reasonCounter");
+
+    const text = document.getElementById("reasonText");
+
+    const button = document.getElementById("nextReason");
+
+    counter.textContent =
         String(currentReason + 1).padStart(2, "0") + " / 10";
 
-    document.getElementById("reasonText").textContent =
-        reasons[currentReason];
+    text.textContent = reasons[currentReason];
 
-    const nextButton = document.getElementById("nextReason");
-
-    if (currentReason === reasons.length - 1) {
-
-        nextButton.textContent = "One Last Surprise ♡";
-
-    } else {
-
-        nextButton.textContent = "Next Reason ♡";
-
-    }
+    button.textContent =
+        currentReason === 9
+            ? "One Last Surprise ♡"
+            : "Next Reason ♡";
 
     const card = document.querySelector(".reason-card");
 
@@ -389,15 +486,16 @@ document.getElementById("nextReason")
     });
 
 
-/* =====================================
-   SCREEN 6 - BIRTHDAY CAKE
-===================================== */
+/* =========================================
+   9. BIRTHDAY CAKE & CANDLES
+========================================= */
 
 let candlesBlown = false;
 
 const blowButton = document.getElementById("blowCandles");
 
 const candles = document.querySelectorAll(".candle");
+
 
 blowButton.addEventListener("click", function () {
 
@@ -411,9 +509,11 @@ blowButton.addEventListener("click", function () {
 
             candle.classList.add("out");
 
-        }, index * 300);
+        }, index * 350);
 
     });
+
+    blowButton.disabled = true;
 
     blowButton.style.display = "none";
 
@@ -433,41 +533,39 @@ blowButton.addEventListener("click", function () {
 });
 
 
-/* =====================================
-   CONFETTI CELEBRATION
-===================================== */
+/* =========================================
+   10. CONFETTI
+========================================= */
 
 function launchConfetti() {
 
-    const confettiSymbols = ["♡", "♥", "✦", "✧", "✨"];
+    const symbols = ["♡", "♥", "✦", "✧", "✨"];
 
     for (let i = 0; i < 65; i++) {
 
-        const confetti = document.createElement("div");
+        const piece = document.createElement("div");
 
-        confetti.className = "confetti";
+        piece.className = "confetti";
 
-        confetti.textContent =
-            confettiSymbols[
-                Math.floor(Math.random() * confettiSymbols.length)
-            ];
+        piece.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
 
-        confetti.style.left = Math.random() * 100 + "vw";
+        piece.style.left = Math.random() * 100 + "vw";
 
-        confetti.style.fontSize =
+        piece.style.fontSize =
             (12 + Math.random() * 18) + "px";
 
-        confetti.style.animationDuration =
+        piece.style.animationDuration =
             (2 + Math.random() * 3) + "s";
 
-        confetti.style.animationDelay =
-            Math.random() * 1.5 + "s";
+        piece.style.animationDelay =
+            Math.random() * 1.2 + "s";
 
-        document.body.appendChild(confetti);
+        document.body.appendChild(piece);
 
         setTimeout(() => {
 
-            confetti.remove();
+            piece.remove();
 
         }, 6000);
 
@@ -476,9 +574,9 @@ function launchConfetti() {
 }
 
 
-/* =====================================
-   MINI CONFETTI
-===================================== */
+/* =========================================
+   11. MINI CONFETTI
+========================================= */
 
 function createMiniConfetti() {
 
@@ -492,7 +590,7 @@ function createMiniConfetti() {
 
         piece.style.left = Math.random() * 100 + "vw";
 
-        piece.style.fontSize = "17px";
+        piece.style.fontSize = "18px";
 
         piece.style.animationDuration = "2s";
 
@@ -509,37 +607,25 @@ function createMiniConfetti() {
 }
 
 
-/* =====================================
-   REPLAY WEBSITE
-===================================== */
+/* =========================================
+   12. REPLAY ENTIRE WEBSITE
+========================================= */
 
 document.getElementById("replayButton")
     .addEventListener("click", function () {
 
         // Reset gift
+        giftOpened = false;
+
         openGift.classList.remove("opened");
 
         // Reset balloons
-        balloons.forEach((balloon) => {
-
-            balloon.classList.remove("popped");
-
-        });
-
-        poppedBalloons = 0;
-
-        // Reset balloon words
-        for (let i = 0; i < 4; i++) {
-
-            document.getElementById("word" + i).textContent = "";
-
-        }
-
-        document.getElementById("surpriseReveal")
-            .classList.remove("show");
+        resetBalloons();
 
         // Reset memories
         currentMemory = 0;
+
+        memoryLoading = false;
 
         // Reset reasons
         currentReason = 0;
@@ -553,18 +639,23 @@ document.getElementById("replayButton")
 
         });
 
+        blowButton.disabled = false;
+
         blowButton.style.display = "inline-flex";
 
         document.getElementById("cakeMessage").textContent = "";
 
-        // Return to welcome screen
+        // Music continues playing
+        // No pause or stop control.
+
         showScreen("welcomeScreen");
 
     });
 
 
-/* =====================================
-   END
-===================================== */
+/* =========================================
+   WEBSITE READY
+========================================= */
 
-console.log("Happy Birthday, Bubu! ❤️");
+console.log("Bubu's Birthday Surprise is Ready! ❤️");
+```
