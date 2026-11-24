@@ -52,22 +52,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // MUSIC AND GIFT
-    const music = $("birthdayMusic");
-    const gift = $("openGift");
-    let giftOpened = false;
+// MUSIC AND GIFT
+const music = $("birthdayMusic");
+const gift = $("openGift");
+let giftOpened = false;
 
-    gift.addEventListener("click", async () => {
-        if (giftOpened) return;
+gift.addEventListener("click", () => {
+    if (giftOpened) return;
 
-        giftOpened = true;
-        gift.classList.add("opened");
+    giftOpened = true;
+    gift.classList.add("opened");
 
-        if (music) {
-            music.volume = 0.7;
-            music.play().catch(error => {
-                console.log("Music could not start:", error);
-            });
+    if (music) {
+        music.pause();
+        music.currentTime = 0;
+        music.volume = 1;
+        music.muted = false;
+
+        const playPromise = music.play();
+
+        if (playPromise !== undefined) {
+            playPromise
+                .then(() => {
+                    console.log("Birthday music started!");
+                })
+                .catch(error => {
+                    alert("Music Error: " + error.message);
+                    console.error(error);
+                });
+        }
+    }
+
+    setTimeout(() => {
+        launchConfetti();
+        showScreen("birthdayScreen");
+    }, 1100);
+});
         }
 
         setTimeout(() => {
